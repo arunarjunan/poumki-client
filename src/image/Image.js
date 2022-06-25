@@ -9,7 +9,7 @@ export const Image = () => {
 
   const sendRequest = async () => {
     const res = await axios
-      .get("http://localhost:3001/s3url")
+      .get("http://api.arunarjunan.co.in/s3url")
       .catch((err) => console.log(err));
     const data = await res.data;
     // console.log(data.url);

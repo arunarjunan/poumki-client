@@ -7,7 +7,7 @@ import RegistrationForm from "./RegistrationForm";
 import UserListPage from "./UserListPage";
 
 
-const socket = io.connect("http://localhost:3001");
+const socket = io.connect("http://api.arunarjunan.co.in");
 
 function App() {
   return (

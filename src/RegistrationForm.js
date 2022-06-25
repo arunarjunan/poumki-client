@@ -5,19 +5,28 @@ import { useForm } from "react-hook-form";
 
 function RegistrationForm() {
 
-  const { register, handleSubmit, formState: { errors } } = useForm();
-
-
-
+  const { register, handleSubmit, formState: { errors },reset } = useForm();
   const onSubmit = (data) => {
 
     console.log(data);
-    Axios.post("http://localhost:3001/insert", {
+    Axios.post("http://api.arunarjunan.co.in/insert", {
       firstName: data.firstName,
       lastName: data.lastName,
       email: data.email,
     });
     alert("Registration Success");
+    reset({
+        firstName: "",
+        lastName: "",
+        email: "",
+      }, {
+        keepErrors: true, 
+        keepDirty: true,
+        keepIsSubmitted: false,
+        keepTouched: false,
+        keepIsValid: false,
+        keepSubmitCount: false,
+      });
     
   }
 
