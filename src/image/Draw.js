@@ -1,6 +1,6 @@
 import * as React from "react";
 import { ReactSketchCanvas } from "react-sketch-canvas";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { useRef } from "react";
 import './draw.css'
 
@@ -10,25 +10,44 @@ export const Draw = ({ data }) => {
   const canvasRef = useRef();
   const [selectedColor, setSelectedColor] = useState(colors[0]);
   const [imageURL, setImageURL] = useState("");
+  const [height, setHeight] = useState(0);
+  const [width, setWidth] = useState(0);
+  const [style, setStyle] = useState({});
+  const [key, setKey] = useState("");
 
   const styles = {
     border: "0.0625rem solid #9c9c9c",
     borderRadius: "0.25rem",
-    height: "500px",
     backgroundImage: `url(${data})`,
     objectFit: "fit",
   };
 
 
+  useEffect(()=>{
+    var img = new Image();
+    img.onload = function() {
+      console.log("Image Size",`${img.height} : ${img.width}`);
+    setHeight(img.height);
+    setWidth(img.width);
+    setStyle(styles)
+
+    canvasRef.current.clearCanvas();
+    setKey(data)
+    }
+    img.src = data;
+  },[data])
+
   const imageExport = async () => {
     const exportImage = canvasRef.current?.exportImage;
+
     if (exportImage) {
-      const exportedDataURI = await exportImage("png");
+      const exportedDataURI = await exportImage("jpg");
       setImageURL(exportedDataURI);
       console.log(exportedDataURI);
-      downloadURI(exportedDataURI, "image.png");
+      downloadURI(exportedDataURI, "image.jpg");
     }
   };
+
   const clearCanvas = () => {
     canvasRef.current.clearCanvas();
   };
@@ -46,15 +65,16 @@ export const Draw = ({ data }) => {
     <>
       <ReactSketchCanvas
         id="canvas"
+        key={key}
         className="canva"
-        width="100%"
-        height="100%"
-        style={styles}
+        width={width}
+        height={height}
+        style={style}
         strokeWidth={4}
         strokeColor={selectedColor}
         backgroundImage={data}
         ref={canvasRef}
-        exportWithBackgroundImage
+        exportWithBackgroundImage={true}
       ></ReactSketchCanvas>
 
       <div className="row mt-3">
@@ -78,9 +98,7 @@ export const Draw = ({ data }) => {
         <div className="col">
         <button onClick={imageExport} className="w-100 btn btn-lg btn-primary">Download</button>
         </div>
-       
-        
-        
+    
       </div>
     </>
   );

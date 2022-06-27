@@ -53,9 +53,9 @@ function UserListPage({ socket }) {
 
   return (
     <div className="container">
-      <div className="row">
-        <div className="col-7">
-          <table class="table table-hover">
+     
+        <div className="row">
+          <table className="table table-hover">
             <thead>
               <tr>
                 <th scope="col">First Name</th>
@@ -99,10 +99,10 @@ function UserListPage({ socket }) {
           </table>
         </div>
 
-        <div className="col-5">
+        <div className="row">
           <Image />
         </div>
-      </div>
+     
     </div>
   );
 }

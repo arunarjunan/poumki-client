@@ -7,7 +7,9 @@ import RegistrationForm from "./RegistrationForm";
 import UserListPage from "./UserListPage";
 
 
-const socket = io.connect("http://api.arunarjunan.co.in");
+const socket = io.connect("http://api.arunarjunan.co.in",{
+  transports:['websocket', 'htmlfile', 'xhr-multipart', 'xhr-polling']
+});
 
 function App() {
   return (

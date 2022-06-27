@@ -62,12 +62,6 @@ export const Image = () => {
             onChange={fileSelectorHandler}
           />
         </div>
-        {/* <div className="right-div">
-          <button onClick={FileUploadHandler}>Upload</button>
-          <a href={image} download={image}>
-            <button>Download</button>
-          </a>
-        </div> */}
       </div>
 
       <div className="image-display mt-2">{image && <Draw data={image} />}</div>
